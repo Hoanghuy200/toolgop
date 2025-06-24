@@ -122,7 +122,7 @@ def INSTAGRAN(file_name, DELAY, choose):
             
             url = 'https://www.instagram.com/'
             try:
-                response = requests.get(url, headers=headers, impersonate="chrome", max_redirects=10)
+                response = requests.get(url, headers=headers, impersonate="safari184_ios", max_redirects=10)
                 response.raise_for_status()
                 getnameig = response.text
                 chuoiname = re.findall(r'"username":"(.*?)"', getnameig)
@@ -208,11 +208,11 @@ def INSTAGRAN(file_name, DELAY, choose):
         headersgl = {
             'authorization': authorization,
             't': T,
-            'user-agent': User_Agent,
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36',
         }
 
         try:
-            thongtinig = requests.get('https://gateway.golike.net/api/instagram-account', headers=headersgl, impersonate="chrome").json()
+            thongtinig = requests.get('https://gateway.golike.net/api/instagram-account', headers=headersgl, impersonate="safari184_ios").json()
             if 'status' not in thongtinig:
                 print(Fore.RED + f"Lỗi khi lấy thông tin tài khoản Instagram tại dòng {idx}." + Fore.RESET)
                 continue
@@ -230,12 +230,14 @@ def INSTAGRAN(file_name, DELAY, choose):
             continue
 
         while dem < choose and DIE == 0:
+            #print('ooooooooooo')
             try:
                 paramsgetjop = {
                     'instagram_account_id': ID,
                     'data': '',
                 }
-                getjop = requests.get('https://gateway.golike.net/api/advertising/publishers/instagram/jobs', params=paramsgetjop, headers=headersgl, impersonate="chrome").json()
+                getjop = requests.get('https://gateway.golike.net/api/advertising/publishers/instagram/jobs', params=paramsgetjop, headers=headersgl, impersonate="safari184_ios").json()
+                #print(getjop)
                 if getjop['status'] == 200:
                     ads_id = getjop['data']['id']
                     object_id = getjop['data']['object_id']
@@ -260,7 +262,7 @@ def INSTAGRAN(file_name, DELAY, choose):
                                 'data': '',
                             }
                             time.sleep(3)
-                            response = requests.post(url, headers=headersgl, json=json_data, impersonate="chrome").json()
+                            response = requests.post(url, headers=headersgl, json=json_data, impersonate="safari184_ios").json()
                             if response.get('success') == True:
                                 dem += 1
                                 local_time = time.localtime()
@@ -287,7 +289,7 @@ def INSTAGRAN(file_name, DELAY, choose):
                                     'https://gateway.golike.net/api/advertising/publishers/instagram/skip-jobs',
                                     headers=headersgl,
                                     json=json_data,
-                                    impersonate="chrome"
+                                    impersonate="safari184_ios"
                                 ).json()
                                 if checkskipjob['status'] == 200:
                                     print(Fore.RED + str(checkskipjob['message']) + Fore.RESET)
@@ -311,7 +313,7 @@ def INSTAGRAN(file_name, DELAY, choose):
                                 'https://gateway.golike.net/api/advertising/publishers/instagram/skip-jobs',
                                 headers=headersgl,
                                 json=json_data,
-                                impersonate="chrome"
+                                impersonate="safari184_ios"
                             ).json()
                             if checkskipjob['status'] == 200:
                                 print(Fore.RED + str(checkskipjob['message']) + Fore.RESET)
@@ -333,7 +335,7 @@ def INSTAGRAN(file_name, DELAY, choose):
                                 'data': '',
                             }
                             time.sleep(3)
-                            response = requests.post(url, headers=headersgl, json=json_data, impersonate="chrome").json()
+                            response = requests.post(url, headers=headersgl, json=json_data, impersonate="safari184_ios").json()
                             if response['success'] == True:
                                 dem += 1
                                 local_time = time.localtime()
@@ -360,7 +362,7 @@ def INSTAGRAN(file_name, DELAY, choose):
                                     'https://gateway.golike.net/api/advertising/publishers/instagram/skip-jobs',
                                     headers=headersgl,
                                     json=json_data,
-                                    impersonate="chrome"
+                                    impersonate="safari184_ios"
                                 ).json()
                                 if checkskipjob['status'] == 200:
                                     print(Fore.RED + str(checkskipjob['message']) + Fore.RESET)
@@ -384,7 +386,7 @@ def INSTAGRAN(file_name, DELAY, choose):
                                 'https://gateway.golike.net/api/advertising/publishers/instagram/skip-jobs',
                                 headers=headersgl,
                                 json=json_data,
-                                impersonate="chrome"
+                                impersonate="safari184_ios"
                             ).json()
                             if checkskipjob['status'] == 200:
                                 print(Fore.RED + str(checkskipjob['message']) + Fore.RESET)
@@ -417,7 +419,7 @@ def INSTAGRAN(file_name, DELAY, choose):
                                 'https://gateway.golike.net/api/advertising/publishers/instagram/complete-jobs',
                                 headers=headersgl,
                                 json=json_data,
-                                impersonate="chrome"
+                                impersonate="safari184_ios"
                             ).json()
                             if response['success'] == True:
                                 dem += 1
@@ -447,7 +449,7 @@ def INSTAGRAN(file_name, DELAY, choose):
                                     'https://gateway.golike.net/api/advertising/publishers/instagram/skip-jobs',
                                     headers=headersgl,
                                     json=json_data,
-                                    impersonate="chrome"
+                                    impersonate="safari184_ios"
                                 ).json()
                                 if checkskipjob['status'] == 200:
                                     print(Fore.RED + str(checkskipjob['message']) + Fore.RESET)
@@ -462,10 +464,15 @@ def INSTAGRAN(file_name, DELAY, choose):
                                 'https://gateway.golike.net/api/advertising/publishers/instagram/skip-jobs',
                                 headers=headersgl,
                                 json=json_data,
-                                impersonate="chrome"
+                                impersonate="safari184_ios"
                             ).json()
                             if checkskipjob['status'] == 200:
                                 print(Fore.RED + str(checkskipjob['message']) + Fore.RESET)
+                elif getjop['status'] == 500: 
+                    print('BẠN HÃY CHỜ 1 PHÚT ĐỂ HỆ THỐNG TÍNH TOÁN LẠI !')
+                    countdown(10)
+                    continue
+                    
                 else:
                     print(Fore.RED + f"{getjop['message']} tại dòng {idx}." + Fore.RESET)
                     if 'Vui lòng bấm lại load job' in getjop['message']:
