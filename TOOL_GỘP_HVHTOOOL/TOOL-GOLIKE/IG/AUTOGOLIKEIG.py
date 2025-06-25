@@ -337,7 +337,7 @@ def INSTAGRAN(file_name, DELAY, choose):
 
                     elif job_type == 'like':
                         try:
-                            response = requests.get('https://www.instagram.com/herbie.officiel', headers=headersig)
+                            response = requests.get(link, headers=headersig)
                             html = response.text
                             match = re.search(r'"carousel_parent_id":"(.*)"', html)
                             try:
