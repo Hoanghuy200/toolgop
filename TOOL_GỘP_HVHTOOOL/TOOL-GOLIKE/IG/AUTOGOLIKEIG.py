@@ -240,10 +240,27 @@ def INSTAGRAN(file_name, DELAY, choose):
                 #print(getjop)
                 if getjop['status'] == 200:
                     ads_id = getjop['data']['id']
-                    object_id = getjop['data']['object_id']
+                    link = getjop['data']['link']
+                    print(link)
                     job_type = getjop['data']['type']
                     print(job_type)
+                   
                     if job_type == 'follow':
+                        try:
+                            getid = requests.get(link, headers=headersig)
+                            html = getid.text
+                            match = re.search(r'"profile_id":"(\d+)"', html)
+                            try:
+                                #print('kkkk')
+                                object_id = match.group(1)
+                                print(object_id)
+                            except:
+                                #print('kkkk1')
+                                object_id = getjop['data']['object_id']
+                                print(object_id)
+                        except:
+                            print("lỗi to get id fl")
+                        
                         url = f'https://www.instagram.com/api/v1/friendships/create/{object_id}/'
                         data = {
                             'container_module': 'profile',
@@ -319,8 +336,22 @@ def INSTAGRAN(file_name, DELAY, choose):
                                 print(Fore.RED + str(checkskipjob['message']) + Fore.RESET)
 
                     elif job_type == 'like':
-                        like_id1 = getjop['data']['description']
-                        like_id = like_id1.split('_')[0]
+                        try:
+                            response = requests.get('https://www.instagram.com/herbie.officiel', headers=headersig)
+                            html = response.text
+                            match = re.search(r'"carousel_parent_id":"(.*)"', html)
+                            try:
+                                carousel_parent_id = match.group(1)
+                                print(carousel_parent_id)
+                                like_id = like_id1.split('_')[0]
+                                print(like_id)
+                            except:
+                                like_id1 = getjop['data']['description']
+                                like_id = like_id1.split('_')[0]
+                                print(like_id)
+                        except:
+                            print("Error fetching page")
+
                         url = f'https://www.instagram.com/api/v1/web/likes/{like_id}/like/'
                         response = requests.post(url, headers=headersig).text
                         print(response)
