@@ -1,3 +1,20 @@
+try :
+  from time import strftime
+  from datetime import datetime, timedelta
+  import re,requests,os,sys
+  from datetime import date
+  from time import sleep 
+  from datetime import datetime 
+except ImportError:
+  os.system("pip install requests")
+  os.system("pip install art")
+  os.system("pip install colorama")
+  os.system("pip install tabulate")
+  os.system("pip install bs4")
+  os.system("pip install pystyle")
+  os.system("pip install curl_cffi")
+  os.system("pip cài đặt random2")
+  os.system("pip cài đặt selenium")
 den = "\033[1;90m"
 luc = "\033[1;32m"
 trang = "\033[1;37m"
@@ -23,6 +40,26 @@ redb = "\033[1;31m"
 end = '\033[0m'
 import os,sys
 os.system('cls')
+green = '\033[92m'
+red = '\033[91m'
+yellow = '\033[93m'
+blue = '\033[94m'
+cyan = '\033[96m'
+purple = '\033[95m'
+bold = '\033[1m'
+reset = '\033[0m'
+def loading_bar():
+    os.system("clear" if os.name != "nt" else "cls")
+    title = f"{bold}{cyan}🚀 Đang Loading Vào BETAPCODE"
+    spinner = ["◐", "◓", "◑", "◒"]
+    for i in range(100):
+        spin = spinner[i % len(spinner)]
+        bar = '█' * (i // 2) + '-' * ((100 - i) // 2)
+        sys.stdout.write(f"\r{title} {purple}[{spin}] {i+1}% [{bar}]{reset}")
+        sys.stdout.flush()
+        sleep(0.01)
+    os.system("clear" if os.name != "nt" else "cls")
+loading_bar()
 banner1=f'''
 \033[1;39m┌────────────────────── Bé Tập Code TOOL ──────────────────────┐
 \033[1;32m║ * Tool chạy trên cmd,codespace,teramux(ubuntu) (teramux thường không chạy đc)
@@ -48,23 +85,6 @@ banner = f"""
 
 
 print(banner1)
-try :
-  from time import strftime
-  from datetime import datetime, timedelta
-  import re,requests,os,sys
-  from datetime import date
-  from time import sleep 
-  from datetime import datetime 
-except ImportError:
-  os.system("pip install requests")
-  os.system("pip install art")
-  os.system("pip install colorama")
-  os.system("pip install tabulate")
-  os.system("pip install bs4")
-  os.system("pip install pystyle")
-  os.system("pip install curl_cffi")
-  os.system("pip cài đặt random2")
-  os.system("pip cài đặt selenium")
 #os.system("")
 
 # màu
@@ -121,12 +141,12 @@ print("\033[1;31m─────────────────────
 print("\033[1;37m╔═══════════════════════╗")
 print("\033[1;37m║  \033[1;33m TOOL TTC  \033[1;37m         ║")
 print("\033[1;37m╚═══════════════════════╝")
-print("\033[1;31m[\033[1;37mBé Tập Code\033[1;31m] \033[1;37m=> \033[1;32mNhập Số \033[1;31m[\033[1;33m✨ 7 \033[1;31m] \033[1;32mTool TTC INSTAGRAM \033[1;31m[\033[1;33m PC|CODESPACES|termux\033[1;31m]")
-print("\033[1;31m[\033[1;37mBé Tập Code\033[1;31m] \033[1;37m=> \033[1;32mNhập Số \033[1;31m[\033[1;33m✨ 8 \033[1;31m] \033[1;32mTool TTC INSTAGRAM RANDOM User_Agent \033[1;31m[\033[1;33m PC|CODESPACES|termux\033[1;31m]")
+print("\033[1;31m[\033[1;37mBé Tập Code\033[1;31m] \033[1;37m=> \033[1;32mNhập Số \033[1;31m[\033[1;33m✨ 7 \033[1;31m] \033[1;32mTool TTC INSTAGRAM RANDOM User_Agent \033[1;31m[\033[1;33m PC|CODESPACES|termux\033[1;31m]")
 print("\033[1;31m────────────────────────────────────────────────────────────")
 print("\033[1;37m╔═════════════════════╗")
 print("\033[1;37m║  \033[1;33mTool FACEBOOK      \033[1;37m║")
 print("\033[1;37m╚═════════════════════╝")
+print("\033[1;31m[\033[1;37mBé Tập Code\033[1;31m] \033[1;37m=> \033[1;32mNhập Số \033[1;31m[\033[1;33m✨ 8 \033[1;31m] \033[1;32m TOOL GET CMT BÀI VIẾT PORT FACEBOOK")
 print("\033[1;31m[\033[1;37mBé Tập Code\033[1;31m] \033[1;37m=> \033[1;32mNhập Số \033[1;31m[\033[1;33m✨ 9 \033[1;31m] \033[1;32mTool BUFF LIKE PAGE")
 print("\033[1;31m[\033[1;37mBé Tập Code\033[1;31m] \033[1;37m=> \033[1;32mNhập Số \033[1;31m[\033[1;33m✨ 10 \033[1;31m] \033[1;32mTool Share Ảo Cookie")
 print("\033[1;31m[\033[1;37mBé Tập Code\033[1;31m] \033[1;37m=> \033[1;32mNhập Số \033[1;31m[\033[1;33m✨ 11 \033[1;31m] \033[1;32mTool BUFF LIKE COMMENT")
@@ -156,9 +176,9 @@ elif chon == 5 :
 elif chon == 6 :
   exec(requests.get('https://raw.githubusercontent.com/Hoanghuy200/toolgop/refs/heads/main/TOOL_G%E1%BB%98P_HVHTOOOL/TOOL-GOLIKE/LAZADA/LAZADA-PC/lazada.py').text)
 if chon == 7 :
-  exec(requests.get('https://raw.githubusercontent.com/Hoanghuy200/toolgop/refs/heads/main/TOOL_G%E1%BB%98P_HVHTOOOL/TTC/TTC%20INSTAGRAM/TTCIG.py').text)
+  exec(requests.get('https://raw.githubusercontent.com/Hoanghuy200/toolgop/refs/heads/main/TOOL_G%E1%BB%98P_HVHTOOOL/TTC/TTC%20INSTAGRAM/TTCIG_user-agent.py').text)
 if chon == 8 :
-  exec(requests.get('https://raw.githubusercontent.com/Hoanghuy200/toolgop/refs/heads/main/TOOL_G%E1%BB%98P_HVHTOOOL/TTC/TTC%20INSTAGRAM/TTCIG_user-agent.py').text) 
+  exec(requests.get('https://raw.githubusercontent.com/Hoanghuy200/toolgop/refs/heads/main/TOOL_G%E1%BB%98P_HVHTOOOL/TOOL%20TI%E1%BB%86N%20%C3%8DCH%20FACEBOOK/TOOL_GET_CMT_FB.py').text) 
 if chon == 9 :
   exec(requests.get('https://raw.githubusercontent.com/Hoanghuy200/toolgop/refs/heads/main/TOOL_G%E1%BB%98P_HVHTOOOL/TOOL%20TI%E1%BB%86N%20%C3%8DCH%20FACEBOOK/LIKE%20PAGE%20PRO5%20VIP.py').text)
 if chon == 10 :
