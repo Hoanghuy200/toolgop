@@ -7,22 +7,49 @@ from time import sleep
 from datetime import datetime
 import random
 
-# Load User-Agent strings from user-agent.txt
-def load_user_agents(file_path="user-agent.txt"):
-    try:
-        with open(file_path, "r", encoding="utf-8") as file:
-            user_agents = [line.strip() for line in file if line.strip()]
-        if not user_agents:
-            raise ValueError("không có User-Agent")
-        return user_agents
-    except FileNotFoundError:
-        print(f"Error: {file_path} không có file")
-        sys.exit(1)
-    except Exception as e:
-        print(f"Error reading {file_path}: {e}")
-        sys.exit(1)
-
-USER_AGENTS = load_user_agents()
+# Define User-Agent strings directly
+USER_AGENTS = [
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1 (iPhone 16)",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1 (iPhone 16 Pro)",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1 (iPhone 16 Pro Max)",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1 (iPhone 16 Plus)",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1 (iPhone 15)",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1 (iPhone 15 Pro)",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1 (iPhone 15 Pro Max)",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Mobile/15E148 Safari/604.1 (iPhone 17)",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Mobile/15E148 Safari/604.1 (iPhone 17 Pro)",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Mobile/15E148 Safari/604.1 (iPhone 17 Pro Max)",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Mobile/15E148 Safari/604.1 (iPhone 14)",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Mobile/15E148 Safari/604.1 (iPhone 14 Pro)",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1 (iPhone SE 4)",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1 (iPhone 15 Plus)",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Mobile/15E148 Safari/604.1 (iPhone 17 Plus)",
+    "Mozilla/5.0 (Linux; Android 14; CPH2573) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 (OPPO Find X7 Pro)",
+    "Mozilla/5.0 (Linux; Android 14; CPH2551) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36 (OPPO Find X7)",
+    "Mozilla/5.0 (Linux; Android 14; CPH2591) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36 (OPPO Reno 11 Pro)",
+    "Mozilla/5.0 (Linux; Android 14; CPH2577) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 (OPPO Reno 11)",
+    "Mozilla/5.0 (Linux; Android 14; CPH2603) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36 (OPPO Find X8)",
+    "Mozilla/5.0 (Linux; Android 14; CPH2611) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36 (OPPO Find X8 Pro)",
+    "Mozilla/5.0 (Linux; Android 14; CPH2621) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 (OPPO Reno 12)",
+    "Mozilla/5.0 (Linux; Android 14; CPH2631) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36 (OPPO Reno 12 Pro)",
+    "Mozilla/5.0 (Linux; Android 14; CPH2581) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36 (OPPO A79)",
+    "Mozilla/5.0 (Linux; Android 14; CPH2599) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 (OPPO A99)",
+    "Mozilla/5.0 (Linux; Android 14; SM-S928B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 (Galaxy S24 Ultra)",
+    "Mozilla/5.0 (Linux; Android 14; SM-S926B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36 (Galaxy S24)",
+    "Mozilla/5.0 (Linux; Android 14; SM-S921B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36 (Galaxy S24 FE)",
+    "Mozilla/5.0 (Linux; Android 14; SM-F956B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 (Galaxy Z Fold 6)",
+    "Mozilla/5.0 (Linux; Android 14; SM-F946B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36 (Galaxy Z Flip 6)",
+    "Mozilla/5.0 (Linux; Android 14; SM-A556B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36 (Galaxy A55)",
+    "Mozilla/5.0 (Linux; Android 14; SM-A356B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 (Galaxy A35)",
+    "Mozilla/5.0 (Linux; Android 14; SM-S938B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36 (Galaxy S25 Ultra)",
+    "Mozilla/5.0 (Linux; Android 14; SM-S936B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36 (Galaxy S25)",
+    "Mozilla/5.0 (Linux; Android 14; SM-M556B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 (Galaxy M55)",
+    "Mozilla/5.0 (Linux; Android 14; SM-F966B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36 (Galaxy Z Fold 7)",
+    "Mozilla/5.0 (Linux; Android 14; SM-F976B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36 (Galaxy Z Flip 7)",
+    "Mozilla/5.0 (Linux; Android 14; SM-A566B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 (Galaxy A56)",
+    "Mozilla/5.0 (Linux; Android 14; SM-A366B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36 (Galaxy A36)",
+    "Mozilla/5.0 (Linux; Android 14; SM-S948B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36 (Galaxy S25 Plus)"
+]
 
 def get_random_user_agent(used_user_agents):
     available_agents = [ua for ua in USER_AGENTS if ua not in used_user_agents]
@@ -38,7 +65,7 @@ def banner():
     print("\033[1;35m██╗    ╔██║      ╚══██╔══╝██╔══██╗██╔══██╗██║")
     print("\033[1;36m██║████║██║ █████╗  ██║   ██║  ██║██║  ██║██║")
     print("\033[1;37m██║    ╚██║ ╚════╝  ██║   ██║  ██║██║  ██║██║")
-    print("\033[1;32m██║     ██║         ██║   ╚█████╔╝╚█████╔╝██████╗")
+    print("\033[1;32 correct m██║     ██║         ██║   ╚█████╔╝╚█████╔╝██████╗")
     print("\033[1;31m╚═╝     ╚═╝         ╚═╝    ╚════╝  ╚════╝ ╚═════╝\n")
     print("\033[97m════════════════════════════════════════════════")
 
@@ -397,7 +424,6 @@ while True:
         loi_get_id = 0  # Counter for get_id failures
         cookie = list_cookie[i]
         current_user_agent = get_random_user_agent(used_user_agents)  # Select new User-Agent for this cookie
-        #print(f"Using User-Agent: {current_user_agent}")  # Debug print to confirm User-Agent
         user = name(cookie, current_user_agent)
         id_ig = user[1]
         if user[0] == 'die':
