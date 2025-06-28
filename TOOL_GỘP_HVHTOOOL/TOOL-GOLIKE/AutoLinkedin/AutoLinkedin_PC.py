@@ -85,6 +85,8 @@ def LINKEDIN():
             readfile.close()
         os.system('cls' if os.name== 'nt' else 'clear')
         banner()
+        print(' Nhập 1 [FOLLOW] | NHẬP 2 [LIKE] | NHẬP 12 [FOLLOW,LIKE] ')
+        loai_jop = int(input(Fore.RED+'\033[1;97m[\033[1;91m❣\033[1;97m] \033[1;36m✈  Nhập Loại Jop Muốn làm : '))
         choose = int(input(Fore.RED+'\033[1;97m[\033[1;91m❣\033[1;97m] \033[1;36m✈  Nhập Số Lượng Job : '))
         DELAY = int(input(Fore.RED+'\033[1;97m[\033[1;91m❣\033[1;97m] \033[1;36m✈  Nhập Delay : '))
         print('\033[97m════════════════════════════════════════════════')
@@ -99,185 +101,485 @@ def LINKEDIN():
                     ads_id = checkurl2['data']['id']
                     object_id = checkurl2['data']['object_id']
                     type = checkurl2['data']['type']
+                    #print(type)
+                    #print(linkjob)
                     countdown(DELAY)
-                    if type == 'follow':
-                        haeaders = {
-                            'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-                            'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
-                            'cache-control': 'max-age=0',
-                            'cookie':COOKIELINK ,
-                            'priority': 'u=0, i',
-                            'referer': 'https://app.golike.net/',
-                            'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
-                            'sec-ch-ua-mobile': '?0',
-                            'sec-ch-ua-platform': '"Windows"',
-                            'sec-fetch-dest': 'document',
-                            'sec-fetch-mode': 'navigate',
-                            'sec-fetch-site': 'same-origin',
-                            'sec-fetch-user': '?1',
-                            'upgrade-insecure-requests': '1',
-                            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-                            }
+                    
+                    if type == 'follow' :
+                        print('ooo')
+                        if loai_jop == 1 or loai_jop == 12:
+                            haeaders = {
+                                'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+                                'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
+                                'cache-control': 'max-age=0',
+                                'cookie':COOKIELINK ,
+                                'priority': 'u=0, i',
+                                'referer': 'https://app.golike.net/',
+                                'sec-ch-ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+                                'sec-ch-ua-mobile': '?0',
+                                'sec-ch-ua-platform': '"Windows"',
+                                'sec-fetch-dest': 'document',
+                                'sec-fetch-mode': 'navigate',
+                                'sec-fetch-site': 'same-origin',
+                                'sec-fetch-user': '?1',
+                                'upgrade-insecure-requests': '1',
+                                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+                                }
 
-                        response = requests.get(str(linkjob),  headers=haeaders, impersonate="chrome").text
-                        if 'li:fsd_company' not in response and 'identityDashProfilesByMemberIdentity&quot;:{&quot;*elements&quot;:[&quot;urn:li:fsd_profile:' not in response:
-                                    json_data2 = {
-                                    'account_id': account_id,
-                                    'ads_id': ads_id,
-                                     }
-                                    url = 'https://gateway.golike.net/api/advertising/publishers/linkedin/complete-jobs'
-                                    check = requests.post(url,headers=headers,json=json_data2,impersonate="chrome").json()
-                                    # Khởi tạo biến tổng tiền nếu chưa có
-                                    if check['success'] == True:
-                                        dem += 1
-                                        local_time = time.localtime()
-                                        hour = local_time.tm_hour
-                                        minute = local_time.tm_min
-                                        second = local_time.tm_sec
+                            response = requests.get(str(linkjob),  headers=haeaders, impersonate="chrome").text
+                            if 'li:fsd_company' not in response and 'identityDashProfilesByMemberIdentity&quot;:{&quot;*elements&quot;:[&quot;urn:li:fsd_profile:' not in response:
+                                        json_data2 = {
+                                        'account_id': account_id,
+                                        'ads_id': ads_id,
+                                        }
+                                        url = 'https://gateway.golike.net/api/advertising/publishers/linkedin/complete-jobs'
+                                        check = requests.post(url,headers=headers,json=json_data2,impersonate="chrome").json()
+                                        # Khởi tạo biến tổng tiền nếu chưa có
+                                        if check['success'] == True:
+                                            dem += 1
+                                            local_time = time.localtime()
+                                            hour = local_time.tm_hour
+                                            minute = local_time.tm_min
+                                            second = local_time.tm_sec
 
-                                        # Định dạng giờ, phút, giây
-                                        h = f"{hour:02d}"
-                                        m = f"{minute:02d}"
-                                        s = f"{second:02d}"
-                                        prices = check['data']['prices']
+                                            # Định dạng giờ, phút, giây
+                                            h = f"{hour:02d}"
+                                            m = f"{minute:02d}"
+                                            s = f"{second:02d}"
+                                            prices = check['data']['prices']
 
-                                        # Cộng dồn giá trị prices vào tổng tiền
-                                        tong += prices
+                                            # Cộng dồn giá trị prices vào tổng tiền
+                                            tong += prices
 
-                                        chuoi = (
-                                            f"\033[1;31m| \033[1;36m{dem}\033[1;31m\033[1;97m | "
-                                            f"\033[1;33m{h}:{m}:{s}\033[1;31m\033[1;97m  | "
-                                            f"\033[1;32msuccess\033[1;31m\033[1;97m | "
-                                            f"\033[1;31m{type}\033[1;31m\033[1;32m\033[1;32m\033[1;97m |"
-                                            f"\033[1;32m Ẩn ID\033[1;97m | \033[1;32m+{prices} \033[1;97m| "
-                                            f"\033[1;33m{tong} vnđ"
-                                        )
-                                        print(chuoi) 
-                                    
-                                    else:
-                                            skipjob = 'https://gateway.golike.net/api/advertising/publishers/linkedin/skip-jobs'
-                                            PARAMS = {
-                                            'ads_id' : ads_id,
-                                            'account_id' : account_id,
-                                            'object_id' : object_id ,
-                                            }
-                                            checkskipjob = ses.post(skipjob,params=PARAMS, impersonate="chrome").json()
-                                            if checkskipjob['status'] == 200:
-                                                message = checkskipjob['message']
-                                                print(Fore.RED+str(message))
-                                                PARAMSr = {
+                                            chuoi = (
+                                                f"\033[1;31m| \033[1;36m{dem}\033[1;31m\033[1;97m | "
+                                                f"\033[1;33m{h}:{m}:{s}\033[1;31m\033[1;97m  | "
+                                                f"\033[1;32msuccess\033[1;31m\033[1;97m | "
+                                                f"\033[1;31m{type}\033[1;31m\033[1;32m\033[1;32m\033[1;97m |"
+                                                f"\033[1;32m Ẩn ID\033[1;97m | \033[1;32m+{prices} \033[1;97m| "
+                                                f"\033[1;33m{tong} vnđ"
+                                            )
+                                            print(chuoi) 
+                                        
+                                        else:
+                                                skipjob = 'https://gateway.golike.net/api/advertising/publishers/linkedin/skip-jobs'
+                                                PARAMS = {
                                                 'ads_id' : ads_id,
                                                 'account_id' : account_id,
                                                 'object_id' : object_id ,
                                                 }
-                        else:
-                            json_data = {
-                            'patch': {
-                                '$set': {
-                                    'following': True,
+                                                checkskipjob = ses.post(skipjob,params=PARAMS,headers=headers, impersonate="chrome").json()
+                                                if checkskipjob['status'] == 200:
+                                                    message = checkskipjob['message']
+                                                    print(Fore.RED+str(message))
+                                                    PARAMSr = {
+                                                    'ads_id' : ads_id,
+                                                    'account_id' : account_id,
+                                                    'object_id' : object_id ,
+                                                    }
+                            else:
+                                json_data = {
+                                'patch': {
+                                    '$set': {
+                                        'following': True,
+                                    },
                                 },
-                            },
+                                }
+                                json_data2 = {
+                                        'account_id': account_id,
+                                        'ads_id': ads_id,
+                                    }
+                                try:
+                                    crft =  COOKIELINK.split('JSESSIONID="')[1].split('"')[0],
+                                    try:
+                                        headersX = {
+                                        'accept': 'application/vnd.linkedin.normalized+json+2.1',
+                                        'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
+                                        'content-type': 'application/json; charset=UTF-8',
+                                        'cookie': COOKIELINK,
+                                        'csrf-token': COOKIELINK.split('JSESSIONID="')[1].split('"')[0],
+                                        'origin': 'https://www.linkedin.com',
+                                        'priority': 'u=1, i',
+                                        'referer': 'https://www.linkedin.com/company/chatplayground-ai/posts/?feedView=all',
+                                        'sec-fetch-dest': 'empty',
+                                        'sec-fetch-mode': 'cors',
+                                        'sec-fetch-site': 'same-origin',
+                                        'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+                                        'x-li-lang': 'en_US',
+                                        'x-li-page-instance': 'urn:li:page:companies_company_posts_index;7952eddd-435c-428e-9587-a2dd19a42e2f',
+                                        'x-li-pem-metadata': 'Voyager - Organization - Member=organization-follow',
+                                        'x-li-track': '{"clientVersion":"1.13.19938","mpVersion":"1.13.19938","osName":"web","timezoneOffset":7,"timezone":"Asia/Bangkok","deviceFormFactor":"DESKTOP","mpName":"voyager-web","displayDensity":1.5625,"displayWidth":2400,"displayHeight":1350}',
+                                        'x-restli-protocol-version': '2.0.0',
+                                        }
+
+                                        ID = response.split('li:fsd_company:')[1].split('&')[0]
+                                        follow = requests.post('https://www.linkedin.com/voyager/api/feed/dash/followingStates/urn:li:fsd_followingState:urn:li:fsd_company:'+ID,headers=headersX,json=json_data, impersonate="chrome")
+                                        url = 'https://gateway.golike.net/api/advertising/publishers/linkedin/complete-jobs'
+                                        time.sleep(2)
+                                        check = requests.post(url,headers=headers,json=json_data2, impersonate="chrome").json()
+                                        if check['success'] == True:
+                                            dem += 1
+                                            local_time = time.localtime()
+                                            hour = local_time.tm_hour
+                                            minute = local_time.tm_min
+                                            second = local_time.tm_sec
+
+                                            # Định dạng giờ, phút, giây
+                                            h = f"{hour:02d}"
+                                            m = f"{minute:02d}"
+                                            s = f"{second:02d}"
+                                            prices = check['data']['prices']
+
+                                            # Cộng dồn giá trị prices vào tổng tiền
+                                            tong += prices
+
+                                            chuoi = (
+                                                f"\033[1;31m| \033[1;36m{dem}\033[1;31m\033[1;97m | "
+                                                f"\033[1;33m{h}:{m}:{s}\033[1;31m\033[1;97m  | "
+                                                f"\033[1;32msuccess\033[1;31m\033[1;97m | "
+                                                f"\033[1;31m{type}\033[1;31m\033[1;32m\033[1;32m\033[1;97m |"
+                                                f"\033[1;32m Ẩn ID\033[1;97m | \033[1;32m+{prices} \033[1;97m| "
+                                                f"\033[1;33m{tong} vnđ"
+                                            )
+                                            print(chuoi) 
+                                        else:
+                                                skipjob = 'https://gateway.golike.net/api/advertising/publishers/linkedin/skip-jobs'
+                                                PARAMS = {
+                                                'ads_id' : ads_id,
+                                                'account_id' : account_id,
+                                                'object_id' : object_id ,
+                                                }
+                                                checkskipjob = ses.post(skipjob,params=PARAMS, impersonate="chrome").json()
+                                                if checkskipjob['status'] == 200:
+                                                    message = checkskipjob['message']
+                                                    print(Fore.RED+str(message))
+                                                    PARAMSr = {
+                                                    'ads_id' : ads_id,
+                                                    'account_id' : account_id,
+                                                    'object_id' : object_id ,
+                                                    }
+                                    except IndexError:
+                                        headersY = {
+                                        'accept': 'application/vnd.linkedin.normalized+json+2.1',
+                                        'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
+                                        'content-type': 'application/json; charset=UTF-8',
+                                        'cookie':COOKIELINK,
+                                        'csrf-token': COOKIELINK.split('JSESSIONID="')[1].split('"')[0],
+                                        'origin': 'https://www.linkedin.com',
+                                        'priority': 'u=1, i',
+                                        'referer': 'https://www.linkedin.com/in/noman-chaudhary-52031148/',
+                                        'sec-fetch-dest': 'empty',
+                                        'sec-fetch-mode': 'cors',
+                                        'sec-fetch-site': 'same-origin',
+                                        'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+                                        'x-li-lang': 'en_US',
+                                        'x-li-page-instance': 'urn:li:page:d_flagship3_profile_view_base;I6RhpcMURWuRvBmeIhl5BQ==',
+                                        'x-li-pem-metadata': 'Voyager - Follows=follow-action,Voyager - Profile Actions=topcard-primary-follow-action-click',
+                                        'x-li-track': '{"clientVersion":"1.13.19938","mpVersion":"1.13.19938","osName":"web","timezoneOffset":7,"timezone":"Asia/Bangkok","deviceFormFactor":"DESKTOP","mpName":"voyager-web","displayDensity":1.5625,"displayWidth":2400,"displayHeight":1350}',
+                                        'x-restli-protocol-version': '2.0.0',
+                                        }
+                                        try:
+                                            ID = response.split('identityDashProfilesByMemberIdentity&quot;:{&quot;*elements&quot;:[&quot;urn:li:fsd_profile:')[1].split('&')[0]
+                                            follow =  requests.post('https://www.linkedin.com/voyager/api/feed/dash/followingStates/urn:li:fsd_followingState:urn:li:fsd_profile:'+ID,headers=headersY,json=json_data, impersonate="chrome") 
+                                            time.sleep(2)
+                                            url = 'https://gateway.golike.net/api/advertising/publishers/linkedin/complete-jobs'
+                                            check = requests.post(url,headers=headers,json=json_data2, impersonate="chrome").json()
+                                            if check['success'] == True:
+                                                dem += 1
+                                                local_time = time.localtime()
+                                                hour = local_time.tm_hour
+                                                minute = local_time.tm_min
+                                                second = local_time.tm_sec
+
+                                                # Định dạng giờ, phút, giây
+                                                h = f"{hour:02d}"
+                                                m = f"{minute:02d}"
+                                                s = f"{second:02d}"
+                                                prices = check['data']['prices']
+
+                                                # Cộng dồn giá trị prices vào tổng tiền
+                                                tong += prices
+
+                                                chuoi = (
+                                                    f"\033[1;31m| \033[1;36m{dem}\033[1;31m\033[1;97m | "
+                                                    f"\033[1;33m{h}:{m}:{s}\033[1;31m\033[1;97m  | "
+                                                    f"\033[1;32msuccess\033[1;31m\033[1;97m | "
+                                                    f"\033[1;31m{type}\033[1;31m\033[1;32m\033[1;32m\033[1;97m |"
+                                                    f"\033[1;32m Ẩn ID\033[1;97m | \033[1;32m+{prices} \033[1;97m| "
+                                                    f"\033[1;33m{tong} vnđ"
+                                                )
+                                                print(chuoi) 
+                                            else:
+                                                    skipjob = 'https://gateway.golike.net/api/advertising/publishers/linkedin/skip-jobs'
+                                                    PARAMS = {
+                                                    'ads_id' : ads_id,
+                                                    'account_id' : account_id,
+                                                    'object_id' : object_id ,
+                                                    }
+                                                    checkskipjob = ses.post(skipjob,params=PARAMS, impersonate="chrome").json()
+                                                    if checkskipjob['status'] == 200:
+                                                        message = checkskipjob['message']
+                                                        print(Fore.RED+str(message))
+                                                        PARAMSr = {
+                                                        'ads_id' : ads_id,
+                                                        'account_id' : account_id,
+                                                        'object_id' : object_id ,
+                                                        }
+                                        except IndexError:
+                                            print('COOKIE DIE')
+                                            os.remove('COOKIELINKEDIN'+str(account_id)+'.txt')
+                                            return 0
+                                except IndexError:
+                                    try:
+                                        headersX = {
+                                        'accept': 'application/vnd.linkedin.normalized+json+2.1',
+                                        'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
+                                        'content-type': 'application/json; charset=UTF-8',
+                                        'cookie': COOKIELINK,
+                                        'csrf-token': COOKIELINK.split('JSESSIONID=')[1].split(';')[0],
+                                        'origin': 'https://www.linkedin.com',
+                                        'priority': 'u=1, i',
+                                        'referer': 'https://www.linkedin.com/company/chatplayground-ai/posts/?feedView=all',
+                                        'sec-fetch-dest': 'empty',
+                                        'sec-fetch-mode': 'cors',
+                                        'sec-fetch-site': 'same-origin',
+                                        'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+                                        'x-li-lang': 'en_US',
+                                        'x-li-page-instance': 'urn:li:page:companies_company_posts_index;7952eddd-435c-428e-9587-a2dd19a42e2f',
+                                        'x-li-pem-metadata': 'Voyager - Organization - Member=organization-follow',
+                                        'x-li-track': '{"clientVersion":"1.13.19938","mpVersion":"1.13.19938","osName":"web","timezoneOffset":7,"timezone":"Asia/Bangkok","deviceFormFactor":"DESKTOP","mpName":"voyager-web","displayDensity":1.5625,"displayWidth":2400,"displayHeight":1350}',
+                                        'x-restli-protocol-version': '2.0.0',
+                                        }
+
+                                        ID = response.split('li:fsd_company:')[1].split('&')[0]
+                                        follow = requests.post('https://www.linkedin.com/voyager/api/feed/dash/followingStates/urn:li:fsd_followingState:urn:li:fsd_company:'+ID,headers=headersX,json=json_data, impersonate="chrome")
+                                        time.sleep(2)
+                                        url = 'https://gateway.golike.net/api/advertising/publishers/linkedin/complete-jobs'
+                                        check = requests.post(url,headers=headers,json=json_data2, impersonate="chrome").json()
+                                        if check['success'] == True:
+                                            dem += 1
+                                            local_time = time.localtime()
+                                            hour = local_time.tm_hour
+                                            minute = local_time.tm_min
+                                            second = local_time.tm_sec
+
+                                            # Định dạng giờ, phút, giây
+                                            h = f"{hour:02d}"
+                                            m = f"{minute:02d}"
+                                            s = f"{second:02d}"
+                                            prices = check['data']['prices']
+
+                                            # Cộng dồn giá trị prices vào tổng tiền
+                                            tong += prices
+
+                                            chuoi = (
+                                                f"\033[1;31m| \033[1;36m{dem}\033[1;31m\033[1;97m | "
+                                                f"\033[1;33m{h}:{m}:{s}\033[1;31m\033[1;97m  | "
+                                                f"\033[1;32msuccess\033[1;31m\033[1;97m | "
+                                                f"\033[1;31m{type}\033[1;31m\033[1;32m\033[1;32m\033[1;97m |"
+                                                f"\033[1;32m Ẩn ID\033[1;97m | \033[1;32m+{prices} \033[1;97m| "
+                                                f"\033[1;33m{tong} vnđ"
+                                            )
+                                            print(chuoi) 
+                                        else:
+                                                skipjob = 'https://gateway.golike.net/api/advertising/publishers/linkedin/skip-jobs'
+                                                PARAMS = {
+                                                'ads_id' : ads_id,
+                                                'account_id' : account_id,
+                                                'object_id' : object_id ,
+                                                }
+                                                checkskipjob = ses.post(skipjob,params=PARAMS, impersonate="chrome").json()
+                                                if checkskipjob['status'] == 200:
+                                                    message = checkskipjob['message']
+                                                    print(Fore.RED+str(message))
+                                                    PARAMSr = {
+                                                    'ads_id' : ads_id,
+                                                    'account_id' : account_id,
+                                                    'object_id' : object_id ,
+                                                    }
+                                    except IndexError:
+                                        headersY = {
+                                        'accept': 'application/vnd.linkedin.normalized+json+2.1',
+                                        'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
+                                        'content-type': 'application/json; charset=UTF-8',
+                                        'cookie':COOKIELINK,
+                                        'csrf-token': COOKIELINK.split('JSESSIONID=')[1].split(';')[0],
+                                        'origin': 'https://www.linkedin.com',
+                                        'priority': 'u=1, i',
+                                        'referer': 'https://www.linkedin.com/in/noman-chaudhary-52031148/',
+                                        'sec-fetch-dest': 'empty',
+                                        'sec-fetch-mode': 'cors',
+                                        'sec-fetch-site': 'same-origin',
+                                        'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+                                        'x-li-lang': 'en_US',
+                                        'x-li-page-instance': 'urn:li:page:d_flagship3_profile_view_base;I6RhpcMURWuRvBmeIhl5BQ==',
+                                        'x-li-pem-metadata': 'Voyager - Follows=follow-action,Voyager - Profile Actions=topcard-primary-follow-action-click',
+                                        'x-li-track': '{"clientVersion":"1.13.19938","mpVersion":"1.13.19938","osName":"web","timezoneOffset":7,"timezone":"Asia/Bangkok","deviceFormFactor":"DESKTOP","mpName":"voyager-web","displayDensity":1.5625,"displayWidth":2400,"displayHeight":1350}',
+                                        'x-restli-protocol-version': '2.0.0',
+                                        }
+                                        try:
+                                            ID = response.split('identityDashProfilesByMemberIdentity&quot;:{&quot;*elements&quot;:[&quot;urn:li:fsd_profile:')[1].split('&')[0]
+                                            follow =  requests.post('https://www.linkedin.com/voyager/api/feed/dash/followingStates/urn:li:fsd_followingState:urn:li:fsd_profile:'+ID,headers=headersY,json=json_data, impersonate="chrome") 
+                                            time.sleep(2)
+                                            url = 'https://gateway.golike.net/api/advertising/publishers/linkedin/complete-jobs'
+                                            check = requests.post(url,headers=headers,json=json_data2, impersonate="chrome").json()
+                                            if check['success'] == True:
+                                                dem += 1
+                                                local_time = time.localtime()
+                                                hour = local_time.tm_hour
+                                                minute = local_time.tm_min
+                                                second = local_time.tm_sec
+
+                                                # Định dạng giờ, phút, giây
+                                                h = f"{hour:02d}"
+                                                m = f"{minute:02d}"
+                                                s = f"{second:02d}"
+                                                prices = check['data']['prices']
+
+                                                # Cộng dồn giá trị prices vào tổng tiền
+                                                tong += prices
+
+                                                chuoi = (
+                                                    f"\033[1;31m| \033[1;36m{dem}\033[1;31m\033[1;97m | "
+                                                    f"\033[1;33m{h}:{m}:{s}\033[1;31m\033[1;97m  | "
+                                                    f"\033[1;32msuccess\033[1;31m\033[1;97m | "
+                                                    f"\033[1;31m{type}\033[1;31m\033[1;32m\033[1;32m\033[1;97m |"
+                                                    f"\033[1;32m Ẩn ID\033[1;97m | \033[1;32m+{prices} \033[1;97m| "
+                                                    f"\033[1;33m{tong} vnđ"
+                                                )
+                                                print(chuoi) 
+                                            else:
+                                                    skipjob = 'https://gateway.golike.net/api/advertising/publishers/linkedin/skip-jobs'
+                                                    PARAMS = {
+                                                    'ads_id' : ads_id,
+                                                    'account_id' : account_id,
+                                                    'object_id' : object_id ,
+                                                
+                                                    }
+                                                    checkskipjob = ses.post(skipjob,params=PARAMS, impersonate="chrome").json()
+                                                    if checkskipjob['status'] == 200:
+                                                        message = checkskipjob['message']
+                                                        print(Fore.RED+str(message))
+                                                        PARAMSr = {
+                                                        'ads_id' : ads_id,
+                                                        'account_id' : account_id,
+                                                        'object_id' : object_id ,
+                                                        
+                                                        }
+                                        except IndexError:
+                                            print('COOKIE DIE')
+                                            os.remove('COOKIELINKEDIN'+str(account_id)+'.txt')
+                                            return 0
+                        else:
+                            skipjob = 'https://gateway.golike.net/api/advertising/publishers/linkedin/skip-jobs'
+                            PARAMS = {
+                            'ads_id' : ads_id,
+                            'account_id' : account_id,
+                            'object_id' : object_id ,
+                        
                             }
+                            checkskipjob = ses.post(skipjob,params=PARAMS, headers=headers,impersonate="chrome").json()
+                            if checkskipjob['status'] == 200:
+                                message = checkskipjob['message']
+                                print(Fore.RED+str(message))
+
+                    elif type == 'like':
+                        if loai_jop == 2 or loai_jop == 12:
+                            try:
+                                crft =  COOKIELINK.split('JSESSIONID')[1].split(';')[0],
+                                headersL = {
+                                    'accept': 'application/vnd.linkedin.normalized+json+2.1',
+                                    'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
+                                    'content-type': 'application/json; charset=UTF-8',
+                                    'cookie': COOKIELINK,
+                                    'csrf-token': COOKIELINK.split('JSESSIONID=')[1].split(';')[0],
+                                    'origin': 'https://www.linkedin.com',
+                                    'priority': 'u=1, i',
+                                    'referer': 'https://www.linkedin.com/feed/update/urn:li:activity:7219700822467575808/',
+                                    'sec-fetch-dest': 'empty',
+                                    'sec-fetch-mode': 'cors',
+                                    'sec-fetch-site': 'same-origin',
+                                    'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+                                    'x-li-lang': 'en_US',
+                                    # 'x-li-page-instance': 'urn:li:page:d_flagship3_detail_base;T3jRBiYHTZqgLY+qsIgtkg==',
+                                    'x-li-track': '{"clientVersion":"1.13.20142","mpVersion":"1.13.20142","osName":"web","timezoneOffset":7,"timezone":"Asia/Bangkok","deviceFormFactor":"DESKTOP","mpName":"voyager-web","displayDensity":1.5625,"displayWidth":2400,"displayHeight":1350}',
+                                    'x-restli-protocol-version': '2.0.0',
+                                }
+
+                                params = {
+                                    'action': 'execute',
+                                    'queryId': 'voyagerSocialDashReactions.b731222600772fd42464c0fe19bd722b',
+                                }
+
+                                json_data = {
+                                    'variables': {
+                                        'entity': {
+                                            'reactionType': 'LIKE',
+                                        },
+                                        'threadUrn': 'urn:li:activity:'+str(object_id),
+                                    },
+                                    'queryId': 'voyagerSocialDashReactions.b731222600772fd42464c0fe19bd722b',
+                                    'includeWebMetadata': True,
+                                }
+
+                                response = requests.post(
+                                    'https://www.linkedin.com/voyager/api/graphql',
+                                    params=params,
+                                    headers=headersL,
+                                    json=json_data,
+                                    impersonate="chrome"
+                                )
+                            except IndexError:
+                                headersN = {
+                                    'accept': 'application/vnd.linkedin.normalized+json+2.1',
+                                    'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
+                                    'content-type': 'application/json; charset=UTF-8',
+                                    'cookie': COOKIELINK,
+                                    'csrf-token': COOKIELINK.split('JSESSIONID="')[1].split('"')[0],
+                                    'origin': 'https://www.linkedin.com',
+                                    'priority': 'u=1, i',
+                                    'referer': 'https://www.linkedin.com/feed/update/urn:li:activity:7219700822467575808/',
+                                    'sec-fetch-dest': 'empty',
+                                    'sec-fetch-mode': 'cors',
+                                    'sec-fetch-site': 'same-origin',
+                                    'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+                                    'x-li-lang': 'en_US',
+                                    # 'x-li-page-instance': 'urn:li:page:d_flagship3_detail_base;T3jRBiYHTZqgLY+qsIgtkg==',
+                                    'x-li-track': '{"clientVersion":"1.13.20142","mpVersion":"1.13.20142","osName":"web","timezoneOffset":7,"timezone":"Asia/Bangkok","deviceFormFactor":"DESKTOP","mpName":"voyager-web","displayDensity":1.5625,"displayWidth":2400,"displayHeight":1350}',
+                                    'x-restli-protocol-version': '2.0.0',
+                                }
+
+                                params = {
+                                    'action': 'execute',
+                                    'queryId': 'voyagerSocialDashReactions.b731222600772fd42464c0fe19bd722b',
+                                }
+
+                                json_data = {
+                                    'variables': {
+                                        'entity': {
+                                            'reactionType': 'LIKE',
+                                        },
+                                        'threadUrn': 'urn:li:activity:'+str(object_id),
+                                    },
+                                    'queryId': 'voyagerSocialDashReactions.b731222600772fd42464c0fe19bd722b',
+                                    'includeWebMetadata': True,
+                                }
+
+                                response = requests.post(
+                                    'https://www.linkedin.com/voyager/api/graphql',
+                                    params=params,
+                                    headers=headersN,
+                                    json=json_data,
+                                    impersonate="chrome"
+                                )
                             json_data2 = {
                                     'account_id': account_id,
                                     'ads_id': ads_id,
                                 }
-                            try:
-                                crft =  COOKIELINK.split('JSESSIONID="')[1].split('"')[0],
-                                try:
-                                    headersX = {
-                                    'accept': 'application/vnd.linkedin.normalized+json+2.1',
-                                    'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
-                                    'content-type': 'application/json; charset=UTF-8',
-                                    'cookie': COOKIELINK,
-                                    'csrf-token': COOKIELINK.split('JSESSIONID="')[1].split('"')[0],
-                                    'origin': 'https://www.linkedin.com',
-                                    'priority': 'u=1, i',
-                                    'referer': 'https://www.linkedin.com/company/chatplayground-ai/posts/?feedView=all',
-                                    'sec-fetch-dest': 'empty',
-                                    'sec-fetch-mode': 'cors',
-                                    'sec-fetch-site': 'same-origin',
-                                    'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
-                                    'x-li-lang': 'en_US',
-                                    'x-li-page-instance': 'urn:li:page:companies_company_posts_index;7952eddd-435c-428e-9587-a2dd19a42e2f',
-                                    'x-li-pem-metadata': 'Voyager - Organization - Member=organization-follow',
-                                    'x-li-track': '{"clientVersion":"1.13.19938","mpVersion":"1.13.19938","osName":"web","timezoneOffset":7,"timezone":"Asia/Bangkok","deviceFormFactor":"DESKTOP","mpName":"voyager-web","displayDensity":1.5625,"displayWidth":2400,"displayHeight":1350}',
-                                    'x-restli-protocol-version': '2.0.0',
-                                    }
-
-                                    ID = response.split('li:fsd_company:')[1].split('&')[0]
-                                    follow = requests.post('https://www.linkedin.com/voyager/api/feed/dash/followingStates/urn:li:fsd_followingState:urn:li:fsd_company:'+ID,headers=headersX,json=json_data, impersonate="chrome")
-                                    url = 'https://gateway.golike.net/api/advertising/publishers/linkedin/complete-jobs'
-                                    time.sleep(2)
-                                    check = requests.post(url,headers=headers,json=json_data2, impersonate="chrome").json()
-                                    if check['success'] == True:
-                                        dem += 1
-                                        local_time = time.localtime()
-                                        hour = local_time.tm_hour
-                                        minute = local_time.tm_min
-                                        second = local_time.tm_sec
-
-                                        # Định dạng giờ, phút, giây
-                                        h = f"{hour:02d}"
-                                        m = f"{minute:02d}"
-                                        s = f"{second:02d}"
-                                        prices = check['data']['prices']
-
-                                        # Cộng dồn giá trị prices vào tổng tiền
-                                        tong += prices
-
-                                        chuoi = (
-                                            f"\033[1;31m| \033[1;36m{dem}\033[1;31m\033[1;97m | "
-                                            f"\033[1;33m{h}:{m}:{s}\033[1;31m\033[1;97m  | "
-                                            f"\033[1;32msuccess\033[1;31m\033[1;97m | "
-                                            f"\033[1;31m{type}\033[1;31m\033[1;32m\033[1;32m\033[1;97m |"
-                                            f"\033[1;32m Ẩn ID\033[1;97m | \033[1;32m+{prices} \033[1;97m| "
-                                            f"\033[1;33m{tong} vnđ"
-                                        )
-                                        print(chuoi) 
-                                    else:
-                                            skipjob = 'https://gateway.golike.net/api/advertising/publishers/linkedin/skip-jobs'
-                                            PARAMS = {
-                                            'ads_id' : ads_id,
-                                            'account_id' : account_id,
-                                            'object_id' : object_id ,
-                                            }
-                                            checkskipjob = ses.post(skipjob,params=PARAMS, impersonate="chrome").json()
-                                            if checkskipjob['status'] == 200:
-                                                message = checkskipjob['message']
-                                                print(Fore.RED+str(message))
-                                                PARAMSr = {
-                                                'ads_id' : ads_id,
-                                                'account_id' : account_id,
-                                                'object_id' : object_id ,
-                                                }
-                                except IndexError:
-                                    headersY = {
-                                    'accept': 'application/vnd.linkedin.normalized+json+2.1',
-                                    'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
-                                    'content-type': 'application/json; charset=UTF-8',
-                                    'cookie':COOKIELINK,
-                                    'csrf-token': COOKIELINK.split('JSESSIONID="')[1].split('"')[0],
-                                    'origin': 'https://www.linkedin.com',
-                                    'priority': 'u=1, i',
-                                    'referer': 'https://www.linkedin.com/in/noman-chaudhary-52031148/',
-                                    'sec-fetch-dest': 'empty',
-                                    'sec-fetch-mode': 'cors',
-                                    'sec-fetch-site': 'same-origin',
-                                    'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
-                                    'x-li-lang': 'en_US',
-                                    'x-li-page-instance': 'urn:li:page:d_flagship3_profile_view_base;I6RhpcMURWuRvBmeIhl5BQ==',
-                                    'x-li-pem-metadata': 'Voyager - Follows=follow-action,Voyager - Profile Actions=topcard-primary-follow-action-click',
-                                    'x-li-track': '{"clientVersion":"1.13.19938","mpVersion":"1.13.19938","osName":"web","timezoneOffset":7,"timezone":"Asia/Bangkok","deviceFormFactor":"DESKTOP","mpName":"voyager-web","displayDensity":1.5625,"displayWidth":2400,"displayHeight":1350}',
-                                    'x-restli-protocol-version': '2.0.0',
-                                    }
-                                    try:
-                                        ID = response.split('identityDashProfilesByMemberIdentity&quot;:{&quot;*elements&quot;:[&quot;urn:li:fsd_profile:')[1].split('&')[0]
-                                        follow =  requests.post('https://www.linkedin.com/voyager/api/feed/dash/followingStates/urn:li:fsd_followingState:urn:li:fsd_profile:'+ID,headers=headersY,json=json_data, impersonate="chrome") 
-                                        time.sleep(2)
-                                        url = 'https://gateway.golike.net/api/advertising/publishers/linkedin/complete-jobs'
-                                        check = requests.post(url,headers=headers,json=json_data2, impersonate="chrome").json()
-                                        if check['success'] == True:
+                            time.sleep(2)
+                            url = 'https://gateway.golike.net/api/advertising/publishers/linkedin/complete-jobs'
+                            check = requests.post(url,headers=headers,json=json_data2, impersonate="chrome").json()
+                            if check['success'] == True:
                                             dem += 1
                                             local_time = time.localtime()
                                             hour = local_time.tm_hour
@@ -297,312 +599,41 @@ def LINKEDIN():
                                                 f"\033[1;31m| \033[1;36m{dem}\033[1;31m\033[1;97m | "
                                                 f"\033[1;33m{h}:{m}:{s}\033[1;31m\033[1;97m  | "
                                                 f"\033[1;32msuccess\033[1;31m\033[1;97m | "
-                                                f"\033[1;31m{type}\033[1;31m\033[1;32m\033[1;32m\033[1;97m |"
+                                                f"\033[1;31m{type} \033[1;31m\033[1;32m\033[1;32m\033[1;97m |"
                                                 f"\033[1;32m Ẩn ID\033[1;97m | \033[1;32m+{prices} \033[1;97m| "
                                                 f"\033[1;33m{tong} vnđ"
                                             )
                                             print(chuoi) 
-                                        else:
-                                                skipjob = 'https://gateway.golike.net/api/advertising/publishers/linkedin/skip-jobs'
-                                                PARAMS = {
-                                                'ads_id' : ads_id,
-                                                'account_id' : account_id,
-                                                'object_id' : object_id ,
-                                                }
-                                                checkskipjob = ses.post(skipjob,params=PARAMS, impersonate="chrome").json()
-                                                if checkskipjob['status'] == 200:
-                                                    message = checkskipjob['message']
-                                                    print(Fore.RED+str(message))
-                                                    PARAMSr = {
-                                                    'ads_id' : ads_id,
-                                                    'account_id' : account_id,
-                                                    'object_id' : object_id ,
-                                                    }
-                                    except IndexError:
-                                        print('COOKIE DIE')
-                                        os.remove('COOKIELINKEDIN'+str(account_id)+'.txt')
-                                        return 0
-                            except IndexError:
-                                try:
-                                    headersX = {
-                                    'accept': 'application/vnd.linkedin.normalized+json+2.1',
-                                    'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
-                                    'content-type': 'application/json; charset=UTF-8',
-                                    'cookie': COOKIELINK,
-                                    'csrf-token': COOKIELINK.split('JSESSIONID=')[1].split(';')[0],
-                                    'origin': 'https://www.linkedin.com',
-                                    'priority': 'u=1, i',
-                                    'referer': 'https://www.linkedin.com/company/chatplayground-ai/posts/?feedView=all',
-                                    'sec-fetch-dest': 'empty',
-                                    'sec-fetch-mode': 'cors',
-                                    'sec-fetch-site': 'same-origin',
-                                    'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
-                                    'x-li-lang': 'en_US',
-                                    'x-li-page-instance': 'urn:li:page:companies_company_posts_index;7952eddd-435c-428e-9587-a2dd19a42e2f',
-                                    'x-li-pem-metadata': 'Voyager - Organization - Member=organization-follow',
-                                    'x-li-track': '{"clientVersion":"1.13.19938","mpVersion":"1.13.19938","osName":"web","timezoneOffset":7,"timezone":"Asia/Bangkok","deviceFormFactor":"DESKTOP","mpName":"voyager-web","displayDensity":1.5625,"displayWidth":2400,"displayHeight":1350}',
-                                    'x-restli-protocol-version': '2.0.0',
-                                    }
-
-                                    ID = response.split('li:fsd_company:')[1].split('&')[0]
-                                    follow = requests.post('https://www.linkedin.com/voyager/api/feed/dash/followingStates/urn:li:fsd_followingState:urn:li:fsd_company:'+ID,headers=headersX,json=json_data, impersonate="chrome")
-                                    time.sleep(2)
-                                    url = 'https://gateway.golike.net/api/advertising/publishers/linkedin/complete-jobs'
-                                    check = requests.post(url,headers=headers,json=json_data2, impersonate="chrome").json()
-                                    if check['success'] == True:
-                                        dem += 1
-                                        local_time = time.localtime()
-                                        hour = local_time.tm_hour
-                                        minute = local_time.tm_min
-                                        second = local_time.tm_sec
-
-                                        # Định dạng giờ, phút, giây
-                                        h = f"{hour:02d}"
-                                        m = f"{minute:02d}"
-                                        s = f"{second:02d}"
-                                        prices = check['data']['prices']
-
-                                        # Cộng dồn giá trị prices vào tổng tiền
-                                        tong += prices
-
-                                        chuoi = (
-                                            f"\033[1;31m| \033[1;36m{dem}\033[1;31m\033[1;97m | "
-                                            f"\033[1;33m{h}:{m}:{s}\033[1;31m\033[1;97m  | "
-                                            f"\033[1;32msuccess\033[1;31m\033[1;97m | "
-                                            f"\033[1;31m{type}\033[1;31m\033[1;32m\033[1;32m\033[1;97m |"
-                                            f"\033[1;32m Ẩn ID\033[1;97m | \033[1;32m+{prices} \033[1;97m| "
-                                            f"\033[1;33m{tong} vnđ"
-                                        )
-                                        print(chuoi) 
-                                    else:
-                                            skipjob = 'https://gateway.golike.net/api/advertising/publishers/linkedin/skip-jobs'
-                                            PARAMS = {
-                                            'ads_id' : ads_id,
-                                            'account_id' : account_id,
-                                            'object_id' : object_id ,
-                                            }
-                                            checkskipjob = ses.post(skipjob,params=PARAMS, impersonate="chrome").json()
-                                            if checkskipjob['status'] == 200:
-                                                message = checkskipjob['message']
-                                                print(Fore.RED+str(message))
-                                                PARAMSr = {
-                                                'ads_id' : ads_id,
-                                                'account_id' : account_id,
-                                                'object_id' : object_id ,
-                                                }
-                                except IndexError:
-                                    headersY = {
-                                    'accept': 'application/vnd.linkedin.normalized+json+2.1',
-                                    'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
-                                    'content-type': 'application/json; charset=UTF-8',
-                                    'cookie':COOKIELINK,
-                                    'csrf-token': COOKIELINK.split('JSESSIONID=')[1].split(';')[0],
-                                    'origin': 'https://www.linkedin.com',
-                                    'priority': 'u=1, i',
-                                    'referer': 'https://www.linkedin.com/in/noman-chaudhary-52031148/',
-                                    'sec-fetch-dest': 'empty',
-                                    'sec-fetch-mode': 'cors',
-                                    'sec-fetch-site': 'same-origin',
-                                    'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
-                                    'x-li-lang': 'en_US',
-                                    'x-li-page-instance': 'urn:li:page:d_flagship3_profile_view_base;I6RhpcMURWuRvBmeIhl5BQ==',
-                                    'x-li-pem-metadata': 'Voyager - Follows=follow-action,Voyager - Profile Actions=topcard-primary-follow-action-click',
-                                    'x-li-track': '{"clientVersion":"1.13.19938","mpVersion":"1.13.19938","osName":"web","timezoneOffset":7,"timezone":"Asia/Bangkok","deviceFormFactor":"DESKTOP","mpName":"voyager-web","displayDensity":1.5625,"displayWidth":2400,"displayHeight":1350}',
-                                    'x-restli-protocol-version': '2.0.0',
-                                    }
-                                    try:
-                                        ID = response.split('identityDashProfilesByMemberIdentity&quot;:{&quot;*elements&quot;:[&quot;urn:li:fsd_profile:')[1].split('&')[0]
-                                        follow =  requests.post('https://www.linkedin.com/voyager/api/feed/dash/followingStates/urn:li:fsd_followingState:urn:li:fsd_profile:'+ID,headers=headersY,json=json_data, impersonate="chrome") 
-                                        time.sleep(2)
-                                        url = 'https://gateway.golike.net/api/advertising/publishers/linkedin/complete-jobs'
-                                        check = requests.post(url,headers=headers,json=json_data2, impersonate="chrome").json()
-                                        if check['success'] == True:
-                                            dem += 1
-                                            local_time = time.localtime()
-                                            hour = local_time.tm_hour
-                                            minute = local_time.tm_min
-                                            second = local_time.tm_sec
-
-                                            # Định dạng giờ, phút, giây
-                                            h = f"{hour:02d}"
-                                            m = f"{minute:02d}"
-                                            s = f"{second:02d}"
-                                            prices = check['data']['prices']
-
-                                            # Cộng dồn giá trị prices vào tổng tiền
-                                            tong += prices
-
-                                            chuoi = (
-                                                f"\033[1;31m| \033[1;36m{dem}\033[1;31m\033[1;97m | "
-                                                f"\033[1;33m{h}:{m}:{s}\033[1;31m\033[1;97m  | "
-                                                f"\033[1;32msuccess\033[1;31m\033[1;97m | "
-                                                f"\033[1;31m{type}\033[1;31m\033[1;32m\033[1;32m\033[1;97m |"
-                                                f"\033[1;32m Ẩn ID\033[1;97m | \033[1;32m+{prices} \033[1;97m| "
-                                                f"\033[1;33m{tong} vnđ"
-                                            )
-                                            print(chuoi) 
-                                        else:
-                                                skipjob = 'https://gateway.golike.net/api/advertising/publishers/linkedin/skip-jobs'
-                                                PARAMS = {
-                                                'ads_id' : ads_id,
-                                                'account_id' : account_id,
-                                                'object_id' : object_id ,
-                                            
-                                                }
-                                                checkskipjob = ses.post(skipjob,params=PARAMS, impersonate="chrome").json()
-                                                if checkskipjob['status'] == 200:
-                                                    message = checkskipjob['message']
-                                                    print(Fore.RED+str(message))
-                                                    PARAMSr = {
-                                                    'ads_id' : ads_id,
-                                                    'account_id' : account_id,
-                                                    'object_id' : object_id ,
-                                                    
-                                                    }
-                                    except IndexError:
-                                        print('COOKIE DIE')
-                                        os.remove('COOKIELINKEDIN'+str(account_id)+'.txt')
-                                        return 0
-                    elif type == 'like':
-                        try:
-                            crft =  COOKIELINK.split('JSESSIONID')[1].split(';')[0],
-
-                            headersL = {
-                                'accept': 'application/vnd.linkedin.normalized+json+2.1',
-                                'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
-                                'content-type': 'application/json; charset=UTF-8',
-                                'cookie': COOKIELINK,
-                                'csrf-token': COOKIELINK.split('JSESSIONID=')[1].split(';')[0],
-                                'origin': 'https://www.linkedin.com',
-                                'priority': 'u=1, i',
-                                'referer': 'https://www.linkedin.com/feed/update/urn:li:activity:7219700822467575808/',
-                                'sec-fetch-dest': 'empty',
-                                'sec-fetch-mode': 'cors',
-                                'sec-fetch-site': 'same-origin',
-                                'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
-                                'x-li-lang': 'en_US',
-                                # 'x-li-page-instance': 'urn:li:page:d_flagship3_detail_base;T3jRBiYHTZqgLY+qsIgtkg==',
-                                'x-li-track': '{"clientVersion":"1.13.20142","mpVersion":"1.13.20142","osName":"web","timezoneOffset":7,"timezone":"Asia/Bangkok","deviceFormFactor":"DESKTOP","mpName":"voyager-web","displayDensity":1.5625,"displayWidth":2400,"displayHeight":1350}',
-                                'x-restli-protocol-version': '2.0.0',
-                            }
-
-                            params = {
-                                'action': 'execute',
-                                'queryId': 'voyagerSocialDashReactions.b731222600772fd42464c0fe19bd722b',
-                            }
-
-                            json_data = {
-                                'variables': {
-                                    'entity': {
-                                        'reactionType': 'LIKE',
-                                    },
-                                    'threadUrn': 'urn:li:activity:'+str(object_id),
-                                },
-                                'queryId': 'voyagerSocialDashReactions.b731222600772fd42464c0fe19bd722b',
-                                'includeWebMetadata': True,
-                            }
-
-                            response = requests.post(
-                                'https://www.linkedin.com/voyager/api/graphql',
-                                params=params,
-                                headers=headersL,
-                                json=json_data,
-                                impersonate="chrome"
-                            )
-                        except IndexError:
-                            headersN = {
-                                'accept': 'application/vnd.linkedin.normalized+json+2.1',
-                                'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
-                                'content-type': 'application/json; charset=UTF-8',
-                                'cookie': COOKIELINK,
-                                'csrf-token': COOKIELINK.split('JSESSIONID="')[1].split('"')[0],
-                                'origin': 'https://www.linkedin.com',
-                                'priority': 'u=1, i',
-                                'referer': 'https://www.linkedin.com/feed/update/urn:li:activity:7219700822467575808/',
-                                'sec-fetch-dest': 'empty',
-                                'sec-fetch-mode': 'cors',
-                                'sec-fetch-site': 'same-origin',
-                                'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
-                                'x-li-lang': 'en_US',
-                                # 'x-li-page-instance': 'urn:li:page:d_flagship3_detail_base;T3jRBiYHTZqgLY+qsIgtkg==',
-                                'x-li-track': '{"clientVersion":"1.13.20142","mpVersion":"1.13.20142","osName":"web","timezoneOffset":7,"timezone":"Asia/Bangkok","deviceFormFactor":"DESKTOP","mpName":"voyager-web","displayDensity":1.5625,"displayWidth":2400,"displayHeight":1350}',
-                                'x-restli-protocol-version': '2.0.0',
-                            }
-
-                            params = {
-                                'action': 'execute',
-                                'queryId': 'voyagerSocialDashReactions.b731222600772fd42464c0fe19bd722b',
-                            }
-
-                            json_data = {
-                                'variables': {
-                                    'entity': {
-                                        'reactionType': 'LIKE',
-                                    },
-                                    'threadUrn': 'urn:li:activity:'+str(object_id),
-                                },
-                                'queryId': 'voyagerSocialDashReactions.b731222600772fd42464c0fe19bd722b',
-                                'includeWebMetadata': True,
-                            }
-
-                            response = requests.post(
-                                'https://www.linkedin.com/voyager/api/graphql',
-                                params=params,
-                                headers=headersN,
-                                json=json_data,
-                                impersonate="chrome"
-                            )
-                        json_data2 = {
-                                'account_id': account_id,
-                                'ads_id': ads_id,
-                            }
-                        time.sleep(2)
-                        url = 'https://gateway.golike.net/api/advertising/publishers/linkedin/complete-jobs'
-                        check = requests.post(url,headers=headers,json=json_data2, impersonate="chrome").json()
-                        if check['success'] == True:
-                                        dem += 1
-                                        local_time = time.localtime()
-                                        hour = local_time.tm_hour
-                                        minute = local_time.tm_min
-                                        second = local_time.tm_sec
-
-                                        # Định dạng giờ, phút, giây
-                                        h = f"{hour:02d}"
-                                        m = f"{minute:02d}"
-                                        s = f"{second:02d}"
-                                        prices = check['data']['prices']
-
-                                        # Cộng dồn giá trị prices vào tổng tiền
-                                        tong += prices
-
-                                        chuoi = (
-                                            f"\033[1;31m| \033[1;36m{dem}\033[1;31m\033[1;97m | "
-                                            f"\033[1;33m{h}:{m}:{s}\033[1;31m\033[1;97m  | "
-                                            f"\033[1;32msuccess\033[1;31m\033[1;97m | "
-                                            f"\033[1;31m{type} \033[1;31m\033[1;32m\033[1;32m\033[1;97m |"
-                                            f"\033[1;32m Ẩn ID\033[1;97m | \033[1;32m+{prices} \033[1;97m| "
-                                            f"\033[1;33m{tong} vnđ"
-                                        )
-                                        print(chuoi) 
-                        else:
-                                skipjob = 'https://gateway.golike.net/api/advertising/publishers/linkedin/skip-jobs'
-                                PARAMS = {
-                                'ads_id' : ads_id,
-                                'account_id' : account_id,
-                                'object_id' : object_id ,
-                                }
-                                checkskipjob = ses.post(skipjob,params=PARAMS, impersonate="chrome").json()
-                                if checkskipjob['status'] == 200:
-                                    message = checkskipjob['message']
-                                    print(Fore.RED+str(message))
-                                    PARAMSr = {
+                            else:
+                                    skipjob = 'https://gateway.golike.net/api/advertising/publishers/linkedin/skip-jobs'
+                                    PARAMS = {
                                     'ads_id' : ads_id,
                                     'account_id' : account_id,
                                     'object_id' : object_id ,
-                                    'async': 'true',
-                                    'data': 'null',
-                                    'type': type,
-                                    }   
+                                    }
+                                    checkskipjob = ses.post(skipjob,params=PARAMS,headers=headers, impersonate="chrome").json()
+                                    if checkskipjob['status'] == 200:
+                                        message = checkskipjob['message']
+                                        print(Fore.RED+str(message))
+                                        PARAMSr = {
+                                        'ads_id' : ads_id,
+                                        'account_id' : account_id,
+                                        'object_id' : object_id ,
+                                        'async': 'true',
+                                        'data': 'null',
+                                        'type': type,
+                                        }   
+                    else:
+                        skipjob = 'https://gateway.golike.net/api/advertising/publishers/linkedin/skip-jobs'
+                        PARAMS = {
+                        'ads_id' : ads_id,
+                        'account_id' : account_id,
+                        'object_id' : object_id ,
+                        }
+                        checkskipjob = ses.post(skipjob,params=PARAMS,headers=headers, impersonate="chrome").json()
+                        if checkskipjob['status'] == 200:
+                            message = checkskipjob['message']
+                            print(Fore.RED+str(message))
                 else:        
                     print(checkurl2['message'])
                     countdown(15)
